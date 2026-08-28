@@ -28,7 +28,7 @@ def compute_mean(values: list[float]) -> float:
 # Compute standard deviation
 def compute_std_dev(values: list[float]) -> float:
     """
-        Compute the standard deviation for a list of numbers.
+        Compute standard deviation for a list of numbers.
         using Bessel's correction (n - 1).
 
         Parameters
