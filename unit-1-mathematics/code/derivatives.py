@@ -73,6 +73,78 @@ def partial_derivative_y(f, x: float, y: float, h: float = 1e-5) -> float:
     """
     return (f(x, y + h) - f(x, y)) / h
 
+# Gradient
+def gradient(f, x: float, y: float, h: float = 1e-5) -> tuple[float, float]:
+    """
+        Approximate gradient of a two variable function at a point.
+
+        Parameters
+        ----------
+        f: callable
+            A two variable function, f(x, y).
+        x: float
+            The x-value at which to evaluate the gradient.
+        y: float
+            The y-value at which to evaluate the gradient
+        h: float, optional
+            A small step size, default 1e-5.
+
+        Returns
+        --------
+        tuple[float, float]
+            The approximate gradient, (df/dx, df/dy) at (x, y).
+    """
+    # Partial derivative of f with respect to x
+    df_dx =  partial_derivative_x(f, x, y, h)
+
+    # Partial derivative of f with respect to y
+    df_dy = partial_derivative_y(f, x, y, h)
+    
+    # Return
+    return (df_dx, df_dy)
+
+# Gradient descent
+def gradient_descent(
+        f,
+        x_start: float, 
+        y_start: float,
+        learning_rate: float = 0.1,
+        steps: int = 100
+) -> tuple[float, float]:
+    """
+        Minimize a two variable function using gradient descent.
+
+        Parameters
+        ----------
+        f: callable
+            A two variable function, f(x, y), to minimize.
+        x_start: float
+            Initial guess for x.
+        y_start: float
+            Initial guess for y.
+        learning_rate: float, optional
+            Step size, alpha, by default 0.1.
+        steps: int, optional
+            Number of iterations to perform, by default 100.
+        
+        Returns
+        -------
+        tuple[float, float]
+            The (x, y) point after minimization. 
+    """
+    x = x_start
+    y = y_start
+
+
+    # Loop
+    for i in range(steps):
+        df_dx, df_dy = gradient(f, x, y)
+        x = x - learning_rate * df_dx
+        y = y - learning_rate * df_dy
+
+    # Return 
+    return (x, y)
+
 def square(x: float) -> float:
     return x ** 2
 
@@ -92,3 +164,30 @@ def f(x: float, y: float) -> float:
 print(f(2, 3))
 print(partial_derivative_x(f, 2, 3))
 print(partial_derivative_y(f, 2, 3))
+
+# Gradient 
+def f2(x: float, y: float) -> float:
+    return 5 * x**2 * y + 3 * y**3 - 2 * x
+
+print(f2(2, 3))
+print(gradient(f2, 2, 3))
+
+# Gradient descent test
+def bowl(x: float, y: float) -> float:
+    return x**2 + y**2
+
+result = gradient_descent(bowl, 5, 8)
+print(result)
+
+# Learning rate experiments
+result_slow = gradient_descent(bowl, 5, 8, 0.001, 100)
+print(result_slow)
+
+result_slow_more_steps = gradient_descent(bowl, 5, 8, 0.001, 10000)
+print(result_slow_more_steps)
+
+result_fast = gradient_descent(bowl, 5, 8, 1.1, 100)
+print(result_fast)
+
+result_edge = gradient_descent(bowl, 5, 8, 0.99, 100)
+print(result_edge)
