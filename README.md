@@ -1,108 +1,47 @@
-\# Scientific Computing with Python
-
+# Scientific Computing with Python
 >  A rigorous, masters-level self-study course in scientific computing. 
-
-
-
-\## Structure
-
-
-
+## Structure
 ```bash
-
 scientific-computing-python
-
 ├── README.md
-
 ├── requirement.txt
-
 ├── unit-0-foundations
-
 │   ├── code
-
 │   ├── milestone
-
 │   └── notes
-
 ├── unit-1-mathematics
-
 │   ├── code
-
 │   ├── milestone
-
 │   └── notes
-
 ├── unit-2-numpy
-
 │   ├── code
-
 │   ├── milestone
-
 │   └── notes
-
 ├── unit-3-scipy
-
 │   ├── code
-
 │   ├── milestone
-
 │   └── notes
-
 ├── unit-4-data-processing
-
 │   ├── code
-
 │   ├── milestone
-
 │   └── notes
-
-├── unit-5-visualisation
-
+├── unit-5-visualization
 │   ├── code
-
 │   ├── milestone
-
 │   └── notes
-
 └── unit-6-capstone
-
-&#x20;   ├── code
-
-&#x20;   ├── data
-
-&#x20;   ├── notes
-
-&#x20;   └── report
-
-
-
 ```
-
-
-
-\## Tools
-
-
-
+## Tools
 * Python + NumPy + Pandas + Matplotlib + SciPy
 * LaTeX + Notepad 
 * Git + GitHub
 
+## Completed
+1. Foundation
+2. Mathematics
 
-
-
-
-\## Textbooks
-
-
-
-\## Author
-
-
-
+## Author
 Evans N. Karago
-
-
 
 GitHub: https://github.com/evansnjagi/ 
 
