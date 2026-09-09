@@ -48,3 +48,11 @@ print(matrix.shape)
 print(matrix[1, 2])
 print(matrix[0,:])
 print(matrix[:, 2])
+
+# Broadcasting
+matrix = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+row = np.array([10, 20, 30])
+print(f"A = \n{matrix}")
+print(f"row = \n{row}")
+
+print(f" matrix + row = \n{matrix + row}")
