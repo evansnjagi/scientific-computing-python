@@ -1,0 +1,28 @@
+Summary data analysis for PM2.5 values
+
+Sample dataset: 
+10.0	10.0	16.0	11.0	19.5	
+
+Length of the dataset: 17645
+
+Mean value is: 31.408461
+
+Standard deviation is: 13.946704
+
+PM2.5 values does not follow a standard normal distribution.
+
+Minimum reading: 3.0
+
+Maximum reading: 213.0
+
+There are 8782 values below one standard deviation, here is a sample: 
+19.5	20.4	19.0	18.25	19.0	
+
+There are 8863 values above one standard deviation, here is a sample: 
+37.6	43.0	32.25	38.0	40.4	
+
+There are 8863 values that are above average. Here is a sample: 
+37.6	43.0	52.0	32.25	38.0	
+
+There are 8782 values that are below average. Here is a sample: 
+10.0	10.0	16.0	11.0	19.5	
