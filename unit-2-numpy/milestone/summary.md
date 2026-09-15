@@ -69,3 +69,29 @@ This process is repeated on the remaining entires until the entire matrix is nor
 
 Following normalization of $\mathbf{A}: 8 \times 8$, is testing. The first test is the normal test. Testing if normalized matrix is the same as the hand computed one. After that, we test on an edge case scenario. Normalizing a $1 \times 1$ matrix e.g. $\mathbf{A} = \begin{pmatrix} 221 \end{pmatrix}$. Mathematically we would normalize $A_{11}$ as $\frac{221-221}{221-221} = \frac{0}{0}$. We expect the function to return `np.nan`, because the result is surely an undefined one.
 
+## 3. `threshold(image: np.ndarray, cutoff: int) -> np.ndarray`
+This function takes in an image pixels as a matrix, then checks if the matrix entry $A_{ij}$ is greater than the cutoff integer value, if true $A_{ij} = 1$ and if the entry is less than the cutoff value then $A_{ij} = 0$.
+
+Let's work out an example. At $A_{11} = 35$ and cutoff = $150$, $A_{11}$ will be returned as a $0$ because 35 is less than 150. 
+
+Using vectorized computation and masking, the entire threshold is computed and a resultant matrix returned.
+
+The last step is always testing if the function is working correctly. In our case, we have three distinct tests to assert that our function is working as intended.
+
+The first test is done with a simple matrix, checking if the output is a 2D array with only zeros and ones.
+
+After the first test, we test with an edge case i.e minimum cutoff of 0 or maximum cutoff equating to 255. 
+
+Testing with minimum cutoff, we expect a matrix with every element equals 0, commonly known as a *ones matrix*.
+
+i.e
+$$
+\mathbf{A} = 
+\begin{pmatrix}
+1 & 1 & \cdots & 1\\
+1 & 1 & \cdots & 1\\
+\vdots
+\end{pmatrix}
+$$
+
+With the maximum cutoff, the output should be a 2D matrix with all zeros. This kind of a matrix is called a *zero matrix*.
