@@ -2,7 +2,7 @@
 > The goal of this project is to use everything we have been learning from creating an array, broadcasting, aggregation, boolean masking, reshaping and automated tests. 
 
 ## Project Setup
-The following is the project tree, used in precision:
+The following is the project tree used: 
 
 ```bash
 unit-2-numpy/milestone/
@@ -67,10 +67,10 @@ $$
 
 This process is repeated on the remaining entires until the entire matrix is normalized. A min-max normalized matrix should have values between $0$ and $1$.
 
-Following normalization of $\mathbf{A}: 8 \times 8$, is testing. The first test is the normal test. Testing if normalized matrix is the same as the hand computed one. After that, we test on an edge case scenario. Normalizing a $1 \times 1$ matrix e.g. $\mathbf{A} = \begin{pmatrix} 221 \end{pmatrix}$. Mathematically we would normalize $A_{11}$ as $\frac{221-221}{221-221} = \frac{0}{0}$. We expect the function to return `np.nan`, because the result is surely an undefined one.
+Following normalization of $\mathbf{A}: 8 \times 8$, is testing. The first test is the normal test. Testing if the normalized matrix is the same as the hand computed one. After that, we test on an edge case scenario. Normalizing a $1 \times 1$ matrix e.g. $\mathbf{A} = \begin{pmatrix} 221 \end{pmatrix}$. Mathematically we would normalize $A_{11}$ as $\frac{221-221}{221-221} = \frac{0}{0}$. In programming, using NumPy, we expect the resultant output to be `np.nan`, because the result is surely an undefined one.
 
 ## 3. `threshold(image: np.ndarray, cutoff: int) -> np.ndarray`
-This function takes in an image pixels as a matrix, then checks if the matrix entry $A_{ij}$ is greater than the cutoff integer value, if true $A_{ij} = 1$ and if the entry is less than the cutoff value then $A_{ij} = 0$.
+This function takes in  image pixels combined together as a matrix, then the function checks if the matrix entry $A_{ij}$ is greater than the cutoff integer value, if true $A_{ij} = 1$ and if the entry is less than the cutoff value then $A_{ij} = 0$.
 
 Let's work out an example. At $A_{11} = 35$ and cutoff = $150$, $A_{11}$ will be returned as a $0$ because 35 is less than 150. 
 
@@ -80,9 +80,9 @@ The last step is always testing if the function is working correctly. In our cas
 
 The first test is done with a simple matrix, checking if the output is a 2D array with only zeros and ones.
 
-After the first test, we test with an edge case i.e minimum cutoff of 0 or maximum cutoff equating to 255. 
+After the first test, we test with an edge case i.e minimum cutoff which is a 0 or maximum cutoff with a integer value of 255. 
 
-Testing with minimum cutoff, we expect a matrix with every element equals 0, commonly known as a *ones matrix*.
+Testing with minimum cutoff, we expect a matrix with every element equals 1, commonly known as a *ones matrix*.
 
 i.e
 $$
@@ -90,8 +90,23 @@ $$
 \begin{pmatrix}
 1 & 1 & \cdots & 1\\
 1 & 1 & \cdots & 1\\
-\vdots
+\vdots & \vdots & \ddots & \vdots \\
+1 & 1 & \cdots & 1\\
 \end{pmatrix}
 $$
 
 With the maximum cutoff, the output should be a 2D matrix with all zeros. This kind of a matrix is called a *zero matrix*.
+
+$$
+\mathbf{A} = 
+\begin{pmatrix}
+0 & 0 & \cdots & 0\\
+0 & 0 & \cdots & 0\\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & 0\\
+\end{pmatrix}
+$$
+
+## ML Connection
+Operations like noise reduction, image enhancement, and cropping, using NumPy, are used to prepare raw image pixels so machine learning models can receive clean and reliable data.
+
