@@ -18,7 +18,7 @@ Each function written, has one single responsibility with a clear explained purp
 ### 1. `data_setup(low, high, tuple[int, int]) -> np.ndarray` 
 This function takes in three parameters and return a 2D array of pixels between *low* and *high*. The array is a simulation of a gray scale image. By default, the image should be of size ($8, 8$). 
 
-The image pixels i.e. $A_{ij} \in \mathbb{R}$ (image array/matrix as $\mathbf{A}$), is chosen randomly between LOW and HIGH values provided as parameters in the function definition.
+The image pixels i.e. $A_{ij} \in \mathbb{R}$ (image array/matrix $\mathbf{A}$), is chosen randomly between LOW and HIGH values provided as parameters in the function definition.
 
 Example:
 ```python
@@ -37,14 +37,155 @@ $$
 157 & 49 & 69 & 113 & 169 & 62 & 241 & 151 \\
 \end{pmatrix}
 $$
-The random matrix above is created and we can perform any operation we want with it.
+The random matrix above is created. We can perform any computation we want using the matrix $\mathbf{A}$.
 
-Once the matrix is formed, several tests are performed to assert that the correct random entries works correctly. 
+Once the matrix is formed, several tests are performed asserting correct random entries $\forall A_{ij} \text{ such that } 0 \le A_{ij} \le 255$
 
-The first test is to check the : ($8 \times 8$) matrix, the shape should align with our expected matrix $\mathbf{A} \in \mathbb{R}^{8 \times 8}$. 
+The first test is to check the size of the ($8 \times 8$) matrix. The shape should align with our expected matrix $\mathbf{A} \in \mathbb{R}^{8 \times 8}$. 
 
 Following that is the second and third test checking matrix addition and multiplication.
 
+In matrix addition, the test expect that adition of two matrix is commutative i.e. $\mathbf{A} + \mathbf{B} = \mathbf{B} + \mathbf{A}$, here is an example: 
+$$
+\mathbf{A} = 
+\begin{pmatrix}
+1 & 2 \\
+3 & 4
+\end{pmatrix} \qquad 
+\mathbf{B} = 
+\begin{pmatrix}
+4 & 3 \\
+2 & 1
+\end{pmatrix}
+$$
+
+$$
+\mathbf{A} + \mathbf{B} = 
+\begin{pmatrix}
+(1 + 4) & (2 + 3) \\
+(3 + 2) & (4 + 1)
+\end{pmatrix} = 
+\begin{pmatrix}
+5 & 5 \\
+5 & 5
+\end{pmatrix}
+$$
+likewise,
+$$
+\mathbf{B} + \mathbf{A} = 
+\begin{pmatrix}
+(4 + 1) & (3 + 2)\\
+(2 + 3) & (1 + 4)
+\end{pmatrix} = 
+\begin{pmatrix}
+5 & 5 \\
+5 & 5
+\end{pmatrix}
+$$
+The two matrix are equal, they are the same $\blacksquare$.
+
+For matrix multiplication, we expect $\mathbf{A} \mathbf{B} \neq \mathbf{B} \mathbf{A}$. Confirming, mathematically, using the two matrix above:
+$$
+\mathbf{A} \mathbf{B} = 
+\begin{pmatrix}
+1 & 2 \\
+3 & 4
+\end{pmatrix}
+\begin{pmatrix}
+4 & 3 \\
+2 & 1
+\end{pmatrix} \\
+\implies
+\begin{pmatrix}
+1 & 2 \\
+3 & 4
+\end{pmatrix} 
+\begin{pmatrix}
+4 \\ 2
+\end{pmatrix} = 
+\begin{pmatrix}
+4 + 4 \\
+12 + 8
+\end{pmatrix}
+=
+\begin{pmatrix}
+8 \\ 20
+\end{pmatrix}\\
+\implies 
+\begin{pmatrix}
+1 & 2 \\
+3 & 4
+\end{pmatrix} 
+\begin{pmatrix}
+3 \\ 1
+\end{pmatrix} = 
+\begin{pmatrix}
+3 + 2 \\
+9 + 4
+\end{pmatrix}
+=
+\begin{pmatrix}
+5 \\
+13
+\end{pmatrix}\\
+\therefore 
+\begin{pmatrix}
+8 & 5 \\
+20 & 13
+\end{pmatrix}
+$$
+next step,
+$$
+\mathbf{B} \mathbf{A} = 
+\begin{pmatrix}
+4 & 3 \\
+2 & 1
+\end{pmatrix}
+\begin{pmatrix}
+1 & 2 \\
+3 & 4
+\end{pmatrix} \\
+\implies
+\begin{pmatrix}
+4 & 3 \\
+2 & 1
+\end{pmatrix} 
+\begin{pmatrix}
+1 \\ 3
+\end{pmatrix} = 
+\begin{pmatrix}
+4 + 9 \\
+2 + 3
+\end{pmatrix}
+=
+\begin{pmatrix}
+13 \\ 5
+\end{pmatrix}\\
+\implies 
+\begin{pmatrix}
+4 & 3 \\
+2 & 1
+\end{pmatrix} 
+\begin{pmatrix}
+2 \\ 4
+\end{pmatrix} = 
+\begin{pmatrix}
+8 + 12 \\
+4 + 4
+\end{pmatrix}
+=
+\begin{pmatrix}
+20 \\ 8
+\end{pmatrix}\\
+\therefore 
+\begin{pmatrix}
+13 & 20 \\
+5 & 8
+\end{pmatrix}
+$$
+The two matrix are not similar. $\blacksquare$
+
+But something is clear, taking transpose of both matrices, the solution will be the same i.e. $(\mathbf{A} \mathbf{B})^{T} = \mathbf{B}^T \mathbf{A}^T$, this is a conceptual followup understanding hence, not tested or proved.
 ## 2. `normalize(image: np.ndarray) -> np.ndarray`
 This function takes in a 2D array, image matrix with pixel entires, and returns a normalized equivalent for each entry.
 
@@ -106,6 +247,24 @@ $$
 0 & 0 & \cdots & 0\\
 \end{pmatrix}
 $$
+
+## Design Decison 
+In normalization function, we have one major edge case problem. Normalizing a $1 \times 1$ matrix, i.e. $\mathbf{A}\in \mathbb{R}^{1 \times 1}$. 
+
+Mathematically, min-max normalization for a 1D matrix, with one entry, gives an *indeterminate* solution. For example, $\mathbf{A} = \begin{pmatrix} 200 \end{pmatrix}$
+
+$$
+\implies X' = \frac{x - \min}{\max - \min}
+ \rightarrow\frac{200 - 200}{200 - 200} = \frac{0}{0}
+$$
+
+Computing min-max normalization with that same matrix, will surely render an error. NumPy handles this gracefully, returning an important RUNTIME error. 
+
+While testing, we need to catch that particular error so that we know our function is working as intended. 
+
+We can raise an EXCEPTION using normal Python code, but inside a vectorized operation, that part will never be reached. The reson is because, NumPy code does not crash raising an exception error. Where we have $\frac{0}{0}$ computation, it returns `np.nan`. 
+
+To solve this problem, we can raise an exception using `np.errstate` setting `divide = "ignore"` and `invalid = "ignore"`. This solves our problem entirely and we can try catching the error in testing section. 
 
 ## ML Connection
 Operations like noise reduction, image enhancement, and cropping, using NumPy, are used to prepare raw image pixels so machine learning models can receive clean and reliable data.

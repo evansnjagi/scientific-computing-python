@@ -54,6 +54,10 @@ def test_threshold_normal():
     assert np.all(threshold(image, 210) == np.array([[1, 0], [0, 1]]))
 
 # Test edge case
+def test_threshold_edge_case():
+    image = np.array([[231, 10], [204, 212]])
+    assert np.all(threshold(image, 212) == np.array([[1, 0], [0, 0]]))
+    
 def test_threshold_edge_case_min():
     image = np.array([[231, 10], [204, 212]])
     assert np.all(threshold(image, 0) == np.array([[1, 1], [1, 1]]))

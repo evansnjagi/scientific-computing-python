@@ -43,15 +43,12 @@ def normalize(image: np.ndarray) -> np.ndarray:
         np.ndarray
             A normalized 2D matrix, values between 0 and 1.
     """
-    min = np.min(image)
-    max = np.max(image)
+    min_pixel = np.min(image)
+    max_pixel = np.max(image)
 
     # Return
-    try:
-        return (image - min) / (max - min)
-    except Exception as err:
-        print(err)
-        return np.nan
+    with np.errstate(divide='ignore', invalid='ignore'):
+        return (image - min_pixel) / (max_pixel - min_pixel)
 
 def threshold(image: np.ndarray, cutoff: int) -> np.ndarray:
     """
@@ -69,7 +66,7 @@ def threshold(image: np.ndarray, cutoff: int) -> np.ndarray:
         np.ndarray
             A 2D array, with the same shape as the image, containing 0 and 1's as the entries.
     """
-    return (image > cutoff - 1).astype(int)
+    return (image > cutoff).astype(int)
 
 def row_col_stats(image: np.ndarray) -> dict:
     """
@@ -110,5 +107,3 @@ def flatten_reshape(image: np.ndarray, new_shape: tuple[int, int]) -> np.ndarray
         return image.flatten().reshape(new_shape)
     except ValueError as err:
         raise ValueError(f"Cannot reshape array: {err}")  
-    
-print(data_setup(0,  255, (8, 8)))
