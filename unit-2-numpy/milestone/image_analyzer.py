@@ -18,12 +18,12 @@ def data_setup(low: int, high: int, size: tuple[int, int] = (8, 8)) -> np.ndarra
 
         high: int
             The highest pixel value the image can have.
-        size: tuple[int, int]
-            The size of the matrix, height and width e.g. (8, 8) 
+        size: tuple[int, int], optional
+            The size of the matrix, height and width. Default size is (8, 8) 
 
     Returns
     -------
-    np.ndarray, optional
+    np.ndarray
         2D array simulating image pixels, default (8, 8).
     """
     return np.random.randint(low = low, high = high, size = size)
@@ -46,8 +46,10 @@ def normalize(image: np.ndarray) -> np.ndarray:
     min_pixel = np.min(image)
     max_pixel = np.max(image)
 
-    # Return
-    with np.errstate(divide='ignore', invalid='ignore'):
+    # Handle error, min = max
+    if min_pixel == max_pixel:
+        raise ValueError("Can't normalize image pixels with no variation. (max equals min).")
+    else:
         return (image - min_pixel) / (max_pixel - min_pixel)
 
 def threshold(image: np.ndarray, cutoff: int) -> np.ndarray:

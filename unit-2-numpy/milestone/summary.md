@@ -1,5 +1,5 @@
 # A Summary of Image Analyzer
-> The goal of this project is to use everything we have been learning from creating an array, broadcasting, aggregation, boolean masking, reshaping and automated tests. 
+> The goal of this project is to use everything we have been learning from creating an array, broadcasting, aggregation, boolean masking, reshaping and automated tests.
 
 ## Project Setup
 The following is the project tree used: 
@@ -199,7 +199,7 @@ $$
 
 Example with $A_{11} = 35$:
 
-From the matrix $\mathbf{A}$, $\text{max} = 2$  and $\text{min} = 251$
+From the matrix $\mathbf{A}$, $\min = 2$  and $\max = 251$
 
 Normalizing $A_{11}$
 $$
@@ -262,10 +262,9 @@ Computing min-max normalization with that same matrix, will surely render an err
 
 While testing, we need to catch that particular error so that we know our function is working as intended. 
 
-We can raise an EXCEPTION using normal Python code, but inside a vectorized operation, that part will never be reached. The reson is because, NumPy code does not crash raising an exception error. Where we have $\frac{0}{0}$ computation, it returns `np.nan`. 
-
-To solve this problem, we can raise an exception using `np.errstate` setting `divide = "ignore"` and `invalid = "ignore"`. This solves our problem entirely and we can try catching the error in testing section. 
-
+The first thing is to check if `min_pixel` == `max_pixel`. If true, then we raise and Exception with a clear message stating that the error is due to computing min-max normalization for pixel values that are not spaced.
 ## ML Connection
 Operations like noise reduction, image enhancement, and cropping, using NumPy, are used to prepare raw image pixels so machine learning models can receive clean and reliable data.
+
+A good example is the normalization of image pixels so that the model can receive pixel values that are not too far away. 
 

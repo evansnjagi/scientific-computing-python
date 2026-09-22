@@ -45,7 +45,8 @@ def test_normalize_normal():
 # 1. Edge case, (1, 1) grayscale image
 def test_normalize_edge_case():
     image = data_setup(0, 255, (1, 1))
-    assert np.isnan(normalize(image))
+    with pytest.raises(ValueError):
+        normalize(image)
 
 
 # Test Threshold function
