@@ -4,6 +4,7 @@
 """
 # Import
 import numpy as np
+import pytest
 
 from optimize import (
     partial_derivative_x,
@@ -66,3 +67,10 @@ def test_f_double_prime():
 # 8. Test Newton's optimization, starting from 3
 def test_newtons_optimization():
     assert np.isclose(newtons_optimization(single_variable_function, x_start=3), 2.25, atol = 1e-4)
+
+# 9. Test what Newton's optimization raises on zero curvature
+def test_newtons_optimization_raises_zero_curvature():
+    def flat_function(x: float) -> float:
+        return 5.0 # Constant zero curvature everywhere
+    with pytest.raises(ValueError):
+        newtons_optimization(flat_function, x_start= 3)

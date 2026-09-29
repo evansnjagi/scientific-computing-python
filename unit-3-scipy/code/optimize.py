@@ -3,6 +3,9 @@
         Unit 3: SciPY
         Optimization algorithms
 """
+# Import 
+import numpy as np
+
 
 # Gradient descent optimization algorithm
 # 1. Compute partial derivation of f with respect to x
@@ -181,6 +184,12 @@ def newtons_optimization(f, x_start: float, h: float = 1e-5, steps: int = 10) ->
     x = x_start
 
     for _ in range(steps):
-        x = x - (f_prime(f, x, h)/ f_double_prime(f, x, h))
+        second_derivative  = f_double_prime(f, x, h)
+        if np.isclose(second_derivative, 0.0):
+            raise ValueError(
+                f"Curvature f'' is zero or near zero at x = {x}; "
+                "Newton's method can not continue safely."
+            )
+        x = x - (f_prime(f, x, h)/ second_derivative)
 
     return x
