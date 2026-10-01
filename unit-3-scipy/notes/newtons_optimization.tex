@@ -1,0 +1,214 @@
+\documentclass[11pt]{article}
+
+% Packages
+\usepackage{amssymb, amsfonts, amsmath}
+\usepackage[margin=1in]{geometry}
+
+% Title
+\title{Scientitif Computing with Python \\ \Large Lesson 3: Scipy - Newtons Optimization}
+\date{\today}
+\author{Evans N. Karago}
+
+% Begin document
+\begin{document}
+% Maketitle
+\maketitle	
+Question: Using \textbf{Newton's} optimization method, minimize the function:
+\[
+f(x, y) = x^2 + x^2y + y^2
+\]
+
+% Steps
+\textbf{Steps:}
+\begin{enumerate}
+% Compute partial derivative with respect to x
+\item Compute the partial derivative of $f(x, y)$ with respect to $x$.
+\[
+\frac{\partial f}{\partial x}  = 2x + 2xy
+\]
+
+% Compute partial derivative with respect to y
+\item Compute the partial derivative of $f(x, y)$ with respect to $y$.
+\[
+\frac{\partial f}{\partial y} = x^2 + 2y
+\]
+
+% Compute gradient
+\item Gradient of the function $f(x, y)$, at point  $(2, 1)$.
+\[
+\nabla f(x, y) = (2x+2xy, x^2 + 2y)
+\]
+\[
+\nabla f(x, y) = (8, 6)
+\]
+
+% Compute second derivative f_xx
+\item Compute $\frac{\partial^2 f}{\partial x^2}$, $f_{xx}$
+\[
+\implies \frac{\partial f}{\partial x}(2x + 2xy) = 2 + 2y
+\]
+
+% Compute second derivative f_xy
+\item Compute second derivative of $f(x, y)$, $f_{yx}$
+\[
+\frac{\partial^2 f}{\partial y \partial x} = 2x
+\]
+
+% Compute second derivative f_yx
+\item Compute the second partial derivative of $f(x, y)$, $f_{xy}$ 
+\[
+f''_{xy}  = \frac{\partial^2 f}{\partial x \partial y} = 2x
+\]
+
+% Compute second derivative f_yy
+\item Compute second derivative of $f(x, y)$, $f_{yy}$.
+\[
+\implies \frac{\partial^2 f}{\partial y^2} = 2
+\]
+
+% Form the Hessian matrix
+\item Now, the Hessian matrix, $\mathbf{H}$
+\[
+\mathbf{H} = 
+\begin{pmatrix}
+2 + 2y & 2x \\
+2x & 2
+\end{pmatrix}
+\]
+\[
+\mathbf{H}(2, 1)  = \begin{pmatrix}
+4 & 4 \\
+4 & 2
+\end{pmatrix}
+\]
+
+% COmpute inverse of the matrix
+\item Compute $\mathbf{H}^{-1}$
+\[
+\implies \frac{1}{-8}
+\begin{pmatrix}
+2 & -4\\
+-4 & 4
+\end{pmatrix} = 
+\begin{pmatrix}
+-\frac{1}{4}& \frac{1}{2}\\
+\frac{1}{2} & -\frac{1}{2}
+\end{pmatrix}
+\]
+\[
+\mathbf{H}^{-1} = 
+\begin{pmatrix}
+-\frac{1}{4}& \frac{1}{2}\\
+\frac{1}{2} & -\frac{1}{2}
+\end{pmatrix}
+\]
+
+% Verify the inverse by computin g H-1H = I
+\item Prove that $\mathbf{H}^{-1}\mathbf{H} = \mathbf{\mathit{I}}$
+\[
+\implies
+\begin{pmatrix}
+4 & 4 \\
+4 & 2	
+\end{pmatrix}
+\begin{pmatrix}
+-\frac{1}{4} & \frac{1}{2} \\
+\frac{1}{2} &- \frac{1}{2}
+\end{pmatrix}
+=
+\mathbf{\mathit{I}}
+\]
+\[
+=
+- \frac{1}{4}
+\begin{pmatrix}
+4 \\ 4
+\end{pmatrix}+ \frac{1}{2}
+\begin{pmatrix}
+4 \\ 2
+\end{pmatrix}
+= \begin{pmatrix}
+-1 \\ -1
+\end{pmatrix}+
+\begin{pmatrix}
+2 \\1
+\end{pmatrix}
+\]
+\[
+\therefore \begin{pmatrix}
+1 \\ 0
+\end{pmatrix}
+\]
+\[
+\implies
+\frac{1}{2}
+\begin{pmatrix}
+4 \\ 4
+\end{pmatrix}
++ - \frac{1}{2}
+\begin{pmatrix}
+4 \\ 2 
+\end{pmatrix} = 
+\begin{pmatrix}
+2 \\ 2
+\end{pmatrix} + 
+\begin{pmatrix}
+-2 \\ 1
+\end{pmatrix}
+\]
+\[
+\therefore \begin{pmatrix}
+0 \\ 1
+\end{pmatrix}
+\]
+\[
+ \implies \begin{pmatrix}
+ 1 & 0 \\
+ 0 & 1
+ \end{pmatrix}
+ \quad  \blacksquare
+\]
+%  Compute the matrix vector multiplication, with the Hessian and gradient vector, computing newton's optimization.
+\item Solve for Newton's optimization, using the formula: $x_{new} = x_{old} - \dfrac{f'(x_{old})}{f''(x_{old})} $
+\[
+\nabla f(2,1) = (8, 6) 
+\]
+\[
+\mathbf{H}^{-1}= \begin{pmatrix}
+-\frac{1}{4} & \frac{1}{2} \\
+\frac{1}{2} & - \frac{1}{2}
+\end{pmatrix}
+\]
+\[
+\implies \mathbf{H}^{-1} \nabla f(2,1) =
+\begin{pmatrix}
+-\frac{1}{4} & \frac{1}{2} \\
+\frac{1}{2} & - \frac{1}{2}
+\end{pmatrix}
+\begin{pmatrix}
+8 \\ 6
+\end{pmatrix}
+=
+\begin{pmatrix}
+-2 + 3 \\ 
+4 - 3
+\end{pmatrix}
+\]
+\[
+\therefore \begin{pmatrix}
+-1 \\ 1
+\end{pmatrix}
+\]
+
+
+\end{enumerate}
+\end{document}
+
+
+
+
+
+
+
+
+
