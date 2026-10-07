@@ -5,7 +5,7 @@
 \usepackage[margin=1in]{geometry}
 
 % Title
-\title{Scientitif Computing with Python \\ \Large Lesson 3: Scipy - Newtons Optimization}
+\title{Scientif Computing with Python \\ \Large Lesson 3: Scipy - Newton's Optimization}
 \date{\today}
 \author{Evans N. Karago}
 
@@ -169,7 +169,7 @@ f''_{xy}  = \frac{\partial^2 f}{\partial x \partial y} = 2x
  \quad  \blacksquare
 \]
 %  Compute the matrix vector multiplication, with the Hessian and gradient vector, computing newton's optimization.
-\item Solve for Newton's optimization, using the formula: $x_{new} = x_{old} - \dfrac{f'(x_{old})}{f''(x_{old})} $
+\item Solve for Newton's optimization, using the formula: $x_{new} = x_{old} - \mathbf{H}^{-1}\nabla f(x, y)$
 \[
 \nabla f(2,1) = (8, 6) 
 \]
@@ -196,11 +196,19 @@ f''_{xy}  = \frac{\partial^2 f}{\partial x \partial y} = 2x
 \]
 \[
 \therefore \begin{pmatrix}
--1 \\ 1
+1 \\ 1
 \end{pmatrix}
 \]
-
-
+\[
+\implies x_{new} = 2 - 1 = 1
+\]
+\[
+\implies
+y_{new} = 1 -1 = 0
+\]
+\[
+\therefore (1, 0)
+\]
 \end{enumerate}
 \end{document}
 

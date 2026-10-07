@@ -13,3 +13,12 @@ vscode/
 .venv/
 .env/
 venv/
+
+# LaTeX files
+*.log
+*.aux
+*.bbl
+*.gz
+*.out
+*.bak
+*.toc

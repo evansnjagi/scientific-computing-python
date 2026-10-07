@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.18)  1 OCT 2026 11:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.18)  1 OCT 2026 11:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -208,7 +208,7 @@ L3 programming layer <2024-01-22>
 Here is how much of TeX's memory you used:
  2303 strings out of 476139
  33181 string characters out of 5794454
- 1940975 words of memory out of 5000000
+ 1941975 words of memory out of 5000000
  24327 multiletter control sequences out of 15000+600000
  566835 words of font info for 68 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
@@ -225,7 +225,7 @@ sfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on newtons_optimization.pdf (2 pages, 137303 bytes).
+Output written on newtons_optimization.pdf (2 pages, 137455 bytes).
 PDF statistics:
  76 PDF objects out of 1000 (max. 8388607)
  45 compressed objects within 1 object stream

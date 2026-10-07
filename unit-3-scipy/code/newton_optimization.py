@@ -1,0 +1,53 @@
+"""
+    Scientific Computing with Python Mastery
+    Lesson 3: Scipy
+        Newtons Optimization Script     
+"""
+# Import 
+import numpy as np
+
+# Second derivation function
+def f_double_prime_xx(f, x: float, y: float, h: float = 1e-5) -> float:
+    """
+        Second derivative of a functon f with respect to x, f_xx.
+
+        Parameters
+        ----------
+        f: callable
+            The function f to compute the second derivative from.
+        x: float
+            The value of x.
+        y: float
+            The value of y.
+        h: float, optional
+            Step size, h, default = 1e-5
+
+        Returns
+        -------
+        float
+            The second derivative of a function f, with respect to x. 
+    """ 
+    return (f(x+h, y) - 2*f(x, y) + f(x - h, y)) / h**2
+
+# Second derivative of f, with respect to y, computing f_yy
+def f_double_prime_yy(f, x: float, y: float, h: float = 1e-5) -> float:
+    """
+        Second derivative of a functon f with respect to y, f_yy.
+
+        Parameters
+        ----------
+        f: callable
+            The function f to compute the second derivative from.
+        x: float
+            The value of x.
+        y: float
+            The value of y.
+        h: float, optional
+            Step size, h, default = 1e-5
+
+        Returns
+        -------
+        float
+            The second derivative of a function f, with respect to y. 
+    """ 
+    return (f(x, y + h) - 2*f(x, y) + f(x, y - h)) / h**2
