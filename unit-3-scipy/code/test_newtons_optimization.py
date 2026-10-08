@@ -8,7 +8,8 @@ import numpy as np
 
 from newton_optimization import (
     f_double_prime_xx,
-    f_double_prime_yy
+    f_double_prime_yy,
+    f_double_prime_xy
 )
 
 # Tests
@@ -29,3 +30,12 @@ def test_hessian_yy_bowl():
 
     # Test
     assert np.isclose(f_double_prime_yy(bowl, 1.0, 1.0), 2.0)
+
+# 3. Test the second derivative of f with respect to x, then another derivative with respect to y, f_xy = 0.
+def test_hessian_xy_bowl():
+    # Bowl function
+    def bowl(x: float, y: float) -> float:
+        return x**2 + y**2
+
+    # The test
+    assert np.isclose(f_double_prime_xy(bowl, 1.0, 1.0), 0.0)
