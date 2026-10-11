@@ -97,3 +97,12 @@ def f_double_prime_yx(f, x: float, y: float, h: float = 1e-5) -> float:
             The derivative of f, df/dydx also f_yx.
     """
     return (f(x + h, y + h) - f(x +  h, y - h) - f(x - h, y + h) + f(x - h, y - h)) / (4 * h**2)
+
+# Test
+def bowl(x: float, y: float) -> float:
+    return x**2 + y**2
+
+
+result = f_double_prime_xx(bowl, 1.0, 1.0, h=1e-4)
+print(result)
+print(abs(result - 2.0))
