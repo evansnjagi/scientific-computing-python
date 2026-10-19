@@ -1,7 +1,7 @@
 # A Summary of Image Analyzer
 > The goal of this project is to use everything we have been learning from creating an array, broadcasting, aggregation, boolean masking, reshaping and automated tests.
 
-## Project Setup
+## Project Set up
 The following is the project tree used: 
 
 ```bash
@@ -45,7 +45,7 @@ The first test is to check the size of the ($8 \times 8$) matrix. The shape shou
 
 Following that is the second and third test checking matrix addition and multiplication.
 
-In matrix addition, the test expect that adition of two matrix is commutative i.e. $\mathbf{A} + \mathbf{B} = \mathbf{B} + \mathbf{A}$, here is an example: 
+In matrix addition, the test expect that addition of two matrices is commutative i.e. $\mathbf{A} + \mathbf{B} = \mathbf{B} + \mathbf{A}$, here is an example: 
 $$
 \mathbf{A} = 
 \begin{pmatrix}
@@ -185,9 +185,9 @@ $$
 $$
 The two matrix are not similar. $\blacksquare$
 
-But something is clear, taking transpose of both matrices, the solution will be the same i.e. $(\mathbf{A} \mathbf{B})^{T} = \mathbf{B}^T \mathbf{A}^T$, this is a conceptual followup understanding hence, not tested or proved.
+But something is clear, taking transpose of both matrices, the solution will be the same i.e. $(\mathbf{A} \mathbf{B})^{T} = \mathbf{B}^T \mathbf{A}^T$, this is a conceptual follow-up understanding hence, not tested or proved.
 ## 2. `normalize(image: np.ndarray) -> np.ndarray`
-This function takes in a 2D array, image matrix with pixel entires, and returns a normalized equivalent for each entry.
+This function takes in a 2D array, image matrix with pixel entries, and returns a normalized equivalent for each entry.
 
 We will constantly use the image array, $\mathbf{A}$, formed by the `data_setup()`. 
 
@@ -199,19 +199,19 @@ $$
 
 Example with $A_{11} = 35$:
 
-From the matrix $\mathbf{A}$, $\min = 2$  and $\max = 251$
+From the matrix $\mathbf{A}$, $\min = 2$ and $\max = 251$
 
 Normalizing $A_{11}$
 $$
 \implies \frac{35 - 2}{251 - 2} = \frac{33}{249} \approx 0.1325
 $$
 
-This process is repeated on the remaining entires until the entire matrix is normalized. A min-max normalized matrix should have values between $0$ and $1$.
+This process is repeated on the remaining entries until the entire matrix is normalized. A min-max normalized matrix should have values between $0$ and $1$.
 
 Following normalization of $\mathbf{A}: 8 \times 8$, is testing. The first test is the normal test. Testing if the normalized matrix is the same as the hand computed one. After that, we test on an edge case scenario. Normalizing a $1 \times 1$ matrix e.g. $\mathbf{A} = \begin{pmatrix} 221 \end{pmatrix}$. Mathematically we would normalize $A_{11}$ as $\frac{221-221}{221-221} = \frac{0}{0}$. In programming, using NumPy, we expect the resultant output to be `np.nan`, because the result is surely an undefined one.
 
 ## 3. `threshold(image: np.ndarray, cutoff: int) -> np.ndarray`
-This function takes in  image pixels combined together as a matrix, then the function checks if the matrix entry $A_{ij}$ is greater than the cutoff integer value, if true $A_{ij} = 1$ and if the entry is less than the cutoff value then $A_{ij} = 0$.
+This function takes in image pixels in form of a matrix, then the function checks if the matrix entry $A_{ij}$ is greater than the cutoff integer value, if true $A_{ij} = 1$ and if the entry is less than the cutoff value then $A_{ij} = 0$.
 
 Let's work out an example. At $A_{11} = 35$ and cutoff = $150$, $A_{11}$ will be returned as a $0$ because 35 is less than 150. 
 
@@ -221,11 +221,11 @@ The last step is always testing if the function is working correctly. In our cas
 
 The first test is done with a simple matrix, checking if the output is a 2D array with only zeros and ones.
 
-After the first test, we test with an edge case i.e minimum cutoff which is a 0 or maximum cutoff with a integer value of 255. 
+After the first test, we test with an edge case i.e. minimum cutoff which is a 0 or maximum cutoff with a integer value of 255. 
 
 Testing with minimum cutoff, we expect a matrix with every element equals 1, commonly known as a *ones matrix*.
 
-i.e
+i.e.
 $$
 \mathbf{A} = 
 \begin{pmatrix}
@@ -236,7 +236,7 @@ $$
 \end{pmatrix}
 $$
 
-With the maximum cutoff, the output should be a 2D matrix with all zeros. This kind of a matrix is called a *zero matrix*.
+With the maximum cutoff, the output should be a 2D matrix with all zeros. This matrix is called a *zero matrix*.
 
 $$
 \mathbf{A} = 
@@ -248,7 +248,7 @@ $$
 \end{pmatrix}
 $$
 
-## Design Decison 
+## Design Decision 
 In normalization function, we have one major edge case problem. Normalizing a $1 \times 1$ matrix, i.e. $\mathbf{A}\in \mathbb{R}^{1 \times 1}$. 
 
 Mathematically, min-max normalization for a 1D matrix, with one entry, gives an *indeterminate* solution. For example, $\mathbf{A} = \begin{pmatrix} 200 \end{pmatrix}$
@@ -266,5 +266,4 @@ The first thing is to check if `min_pixel` == `max_pixel`. If true, then we rais
 ## ML Connection
 Operations like noise reduction, image enhancement, and cropping, using NumPy, are used to prepare raw image pixels so machine learning models can receive clean and reliable data.
 
-A good example is the normalization of image pixels so that the model can receive pixel values that are not too far away. 
-
+A good example is the normalization of image pixels so that the model can receive pixel values that are not too far away.
