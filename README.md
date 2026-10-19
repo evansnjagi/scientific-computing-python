@@ -4,7 +4,7 @@
 ```bash
 scientific-computing-python
 ├── README.md
-├── requirement.txt
+├── requirements.txt
 ├── unit-0-foundations
 │   ├── code
 │   ├── milestone
