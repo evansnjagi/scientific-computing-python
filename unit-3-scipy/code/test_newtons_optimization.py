@@ -10,7 +10,8 @@ from newton_optimization import (
     f_double_prime_xx,
     f_double_prime_yy,
     f_double_prime_xy,
-    f_double_prime_yx
+    hessian,
+    newtons
 )
 
 # Tests
@@ -42,25 +43,35 @@ def test_hessian_xy():
         return x*y
 
     # The test, using bowl function, expected f_xy = 0
-    assert np.isclose(f_double_prime_xy(bowl, 1.0, 1.0), 0.0, atol = 1e-4)
+    assert np.isclose(f_double_prime_xy(bowl, 1.0, 1.0), 0.0)
 
     # Test using mixed function, expected f_xy = 1
-    assert np.isclose(f_double_prime_xy(mixed, 1.0, 1.0), 1.0, atol = 1e-4)
+    assert np.isclose(f_double_prime_xy(mixed, 1.0, 1.0), 1.0)
 
-# 4. Test the second derivative of f with respect to y, then another derivative with respect to x, i.e. df/dydx also, f_yx.
 
-def test_hessian_yx():
-    # Bowl function
-    def bowl(x: float, y: float) -> float:
-        return x**2 + y**2
+# Testing the hessian matrix with a quadratic function
+def test_hessian_quadratic():
+    # Quadratic function
+    def quadratic(x: float, y: float) -> float:
+        return x**2 + x*y + 2*y**2
 
-    # Mixed function
-    def mixed_function(x: float, y: float) -> float:
-        return x * y
+    expected = np.array([[2, 1], [1, 4]])
 
-    # Test using the bowl function, expected f_yx = 0
-    assert np.isclose(f_double_prime_yx(bowl, 1.0, 1.0), 0.0, atol = 1e-4)
+    # |f| at (1, 1) = 4, h = 1e-5, eps = 2.2e-16
+    # f_xx and f_yy noise is eps * |f|/h**2 => 8.8e-8
+    # # f_xy noise is eps * |f| / (4 * h**2) => 2.2e-8
+    # Truncation error = 0, the function is quadratic
+    # atol = worst noise * 10 => 8.9e-9 * 10 = 9e-7, rounded to the power of ten = 1e-6.
+    
+    assert np.allclose(hessian(quadratic, 1, 1), expected, atol=1e-6)
 
-    # Test using the mixed funcition, expected f_yx = 1.
-    assert np.isclose(f_double_prime_yx(mixed_function, 1.0, 1.0), 1.0, atol = 1e-4)
+# Newtons optimization test
+def test_newtons_optimization():
+    # Quadratic function
+    def f(x: float, y: float) -> float:
+        return x**2 + x*y + 2*y**2
 
+    # Expected
+    expected = np.array([0.0, 0.0])
+    # The test
+    assert np.allclose(newtons(f, 1, 1), expected)

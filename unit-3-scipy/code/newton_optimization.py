@@ -1,13 +1,15 @@
 """
     Scientific Computing with Python Mastery
     Lesson 3: Scipy
-        Newtons Optimization Script     
+        Newtons Optimization Script, Multivariable Computation  
 """
 # Import 
 import numpy as np
 
+from optimize import gradient 
+
 # Second derivation function
-def f_double_prime_xx(f, x: float, y: float, h: float = 1e-5) -> float:
+def f_double_prime_xx(f, x: float, y: float, h: float = 1e-4) -> float:
     """
         Second derivative of a functon f with respect to x, f_xx.
 
@@ -20,7 +22,7 @@ def f_double_prime_xx(f, x: float, y: float, h: float = 1e-5) -> float:
         y: float
             The value of y.
         h: float, optional
-            Step size, h, default = 1e-5
+            Step size, h, default = 1e-4
 
         Returns
         -------
@@ -30,7 +32,7 @@ def f_double_prime_xx(f, x: float, y: float, h: float = 1e-5) -> float:
     return (f(x+h, y) - 2*f(x, y) + f(x - h, y)) / h**2
 
 # Second derivative of f, with respect to y, computing f_yy
-def f_double_prime_yy(f, x: float, y: float, h: float = 1e-5) -> float:
+def f_double_prime_yy(f, x: float, y: float, h: float = 1e-4) -> float:
     """
         Second derivative of a functon f with respect to y, f_yy.
 
@@ -43,7 +45,7 @@ def f_double_prime_yy(f, x: float, y: float, h: float = 1e-5) -> float:
         y: float
             The value of y.
         h: float, optional
-            Step size, h, default = 1e-5
+            Step size, h, default = 1e-4
 
         Returns
         -------
@@ -53,7 +55,7 @@ def f_double_prime_yy(f, x: float, y: float, h: float = 1e-5) -> float:
     return (f(x, y + h) - 2*f(x, y) + f(x, y - h)) / h**2
 
 # Derivative of f with respect to x, then another derivative with respect to y, i.e. f_xy
-def f_double_prime_xy(f, x: float, y: float, h: float = 1e-5) -> float:
+def f_double_prime_xy(f, x: float, y: float, h: float = 1e-4) -> float:
     """
         The derivative of f with respect to x, then another derivative with respect to y, df/dxdy -> f_xy.
 
@@ -66,7 +68,7 @@ def f_double_prime_xy(f, x: float, y: float, h: float = 1e-5) -> float:
         y: float
             The value of y.
         h: float, optional
-            The small step size, default = 1e-5.
+            The small step size, default = 1e-4.
         
         Returns
         -------
@@ -75,34 +77,41 @@ def f_double_prime_xy(f, x: float, y: float, h: float = 1e-5) -> float:
     """
     return (f(x + h, y + h) - f(x + h, y-h) - f(x-h, y + h) + f(x -h, y - h)) / (4 * h**2)
 
-# Derivative of f with respect to y, then another derivative with respect to x.
-def f_double_prime_yx(f, x: float, y: float, h: float = 1e-5) -> float:
+# Hessian matrix
+def hessian(f, x: float, y: float, h: float = 1e-4) -> np.ndarray:
     """
-        Partial derivative of f with respect to y, then another derivative with respect to x, df/dydx
-
+        The Hessian matrix:
+            f_xx f_xy
+            f_xy f_yy
         Parameters
         ----------
         f: callable
-            The function to compute partial derivative on.
+            The function to compute the hessian matrix from.
         x: float
-            The value of x.
+            The float value of x.
         y: float
             The value of y.
         h: float, optional
-            Small step size, default = 1e-5
+            Small step size, default = 1e-4
 
-        Returns
-        -------
-        float
-            The derivative of f, df/dydx also f_yx.
+        # Returns
+        np.ndarray
+            A 2x2, Hessian matrix, H. 
     """
-    return (f(x + h, y + h) - f(x +  h, y - h) - f(x - h, y + h) + f(x - h, y - h)) / (4 * h**2)
+    # Matix entries
+    f_xx = f_double_prime_xx(f, x, y, h)
+    f_yy = f_double_prime_yy(f, x, y, h)
+    f_xy = f_double_prime_xy(f, x, y, h)
 
-# Test
-def bowl(x: float, y: float) -> float:
-    return x**2 + y**2
+    # Return
+    return np.array([[f_xx, f_xy], [f_xy, f_yy]])
+
+# Compute the newtons optimization
 
 
-result = f_double_prime_xx(bowl, 1.0, 1.0, h=1e-4)
-print(result)
-print(abs(result - 2.0))
+# Get the gradient
+# Function 
+def f(x: float, y: float) -> float:
+    return x**2 + x*y + 2*y**2
+
+print(gradient(f, 1, 1))
