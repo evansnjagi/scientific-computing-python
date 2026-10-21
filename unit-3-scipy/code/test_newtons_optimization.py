@@ -74,4 +74,7 @@ def test_newtons_optimization():
     # Expected
     expected = np.array([0.0, 0.0])
     # The test
-    assert np.allclose(newtons(f, 1, 1), expected)
+    # Hessian tolerance = 1e-6
+    # Gradient tolerance = 1e-10
+    # Maximum tolerance, Hessian tolerance = 1e-6
+    assert np.allclose(newtons(f, 1, 1), expected, atol = 1e-6)

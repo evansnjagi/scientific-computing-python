@@ -94,11 +94,12 @@ def hessian(f, x: float, y: float, h: float = 1e-4) -> np.ndarray:
         h: float, optional
             Small step size, default = 1e-4
 
-        # Returns
+        Returns
+        -------
         np.ndarray
             A 2x2, Hessian matrix, H. 
     """
-    # Matix entries
+    # Matrix entries
     f_xx = f_double_prime_xx(f, x, y, h)
     f_yy = f_double_prime_yy(f, x, y, h)
     f_xy = f_double_prime_xy(f, x, y, h)
@@ -107,11 +108,42 @@ def hessian(f, x: float, y: float, h: float = 1e-4) -> np.ndarray:
     return np.array([[f_xx, f_xy], [f_xy, f_yy]])
 
 # Compute the newtons optimization
+def newtons(f, x: float, y: float, h: float = 1e-4, steps: int = 30) -> np.ndarray:
+    """
+        Newton's multivariable optimization, i.e. f(x,y).
 
+        Parameters
+        ----------
+        f: callable
+            The function to compute the newton's optimization.
+        x: float
+            The value of x to evaluate the algorithm
+        y: float
+            The value of y, to evaluate the algorithm
+        h: float, optional
+            Small step size used during differentiation, default = 1e-4
+        Steps: int, optional
+            Number of iterations to make, default = 30
+        Returns
+        -------
+        np.ndarray
+            A vector of the optimal solution, i.e (x_value, y_value) e.g. (0.0, 0.0)
+    """
+    # Get the gradient
+    f_tilder = gradient(f, x, y, h)
+
+    # Iterations
+    for _ in range(steps):
+        x = x
+        y = y
+        h_inverse = hessian(f, x, y, h)
+
+    # Return newtons optimization
+    return np.dot(h_inverse, f_tilder)
 
 # Get the gradient
 # Function 
 def f(x: float, y: float) -> float:
     return x**2 + x*y + 2*y**2
 
-print(gradient(f, 1, 1))
+print(newtons(f, 1, 1))
