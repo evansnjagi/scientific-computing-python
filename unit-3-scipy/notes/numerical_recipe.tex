@@ -1,0 +1,52 @@
+% Document preable
+\documentclass[11pt]{article}
+
+% Packages
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage[margin=1in]{geometry}
+
+% Make title
+\title{Scientific Computing with Python\\ \Large Lesson 3: Scipy \\ \large Numerical Recipes}
+\author{Evans N. Karago}
+\date{\today}
+
+% Begin document
+\begin{document}\maketitle
+We have seen two major source of errors in numerical analysis. They include:
+\begin{enumerate}
+\item Trancation error
+\item Rounding error
+\end{enumerate}
+With this kind of errors, we need to check machine epsilon before computation, because tests are written first, real Python code follows. As the actual program is running, alot of numerical approximation (e.g. rounding off or truncation) is made, so it's important to know how much of it to expect during testing.\\[2ex]
+In python, the first step is to import numpy, since its our main tool for scientific computing.\\[2ex]
+Check the machine epsilon using, \textit{np.finfo(float).esp}, in most machines the epsilon value is ussually approximately, $2.2 \times 10 ^{-16}$ i.e. floating point information epsilon.
+\\[2ex]
+Each function is stored with an error of $\epsilon \cdot |f|$, therefore the noise is computed as:
+\[
+N = \frac{\epsilon \cdot |f|}{\text{denominator}}
+\]  
+Example:\\[2ex]
+
+Using the bowl function, $f(x, y) =x^2 + y^2$, compute the propagating noise from computing numerical derivative of the function.  Numerical derivative is computed using: $\lim_{h \to 0}\dfrac{f(x + h) - f(x)}{h}$ , taking $h = 1 \times 10 ^{-5}$ at $x = 1, y = 1$.
+
+\[
+\implies
+\frac{2.2 \times 10^{-16} \times (1^2 + 1^2)}{1 \times 10^-5} = \frac{4.4 \times 10 ^{-16}}{1 \times 10^-{5}} = 4.4 \times 10 ^{-11}
+\]
+
+\textit{np.isclose} allows $1 \times 10 ^{-8}$, for absolute torellance. A key formula to note here is: 
+\[
+|a - b| \leq \text{atoi} + \text{rtoi} \times |b|
+\]
+The $b$ above here is the function value. In our case we will have, 
+\[
+|a - b| \leq 10^{-8} + 10^{-5} \times 2 
+\]
+\[
+|a - b| \leq 2.002 \times 10 ^ {-5}
+\]
+\end{document}
+
+
+
+
